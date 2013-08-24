@@ -10,9 +10,29 @@ module TodoSamp
 	
 		def execute
 			options = Options.parse!(@argv)
+			sub_command = options.delete(:command)
+			
 			DB.prepare
+			tasks = case sub_command
+				when 'create'
+					create_task(options[:name], options[:content])
+				end
+			display tasks
 		end
-	
+		
+		def display(tasks)
+			header = display_format('id','name','content','status')
+			puts header
+			
+			Array(tasks).each do |task|
+				puts display_format(task.id, task.name, task.content, task.status)
+			end
+		end
+		
+		def display_format(id,name,content,status)
+			[id.to_s.ljust(4), name.ljust(20), content.ljust(30), status.to_s.ljust(4)].join(' | ')
+		end
+		
 		def create_task(name, content)
 			Task.create(name: name, content: content).reload
 		end

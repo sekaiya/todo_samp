@@ -12,8 +12,8 @@ module TodoSamp
 				
 				begin
 					cp.order!(argv)
-					options[:comand] = argv.shift
-					sub_cps[options[:comand]].parse!(argv)
+					options[:command] = argv.shift
+					sub_cps[options[:command]].parse!(argv)
 				rescue Object =>e
 					abort e.message
 				end
