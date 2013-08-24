@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'todo_samp'
+
+TodoSamp::Command.run(ARGV)
